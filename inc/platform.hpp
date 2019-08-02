@@ -27,10 +27,10 @@
 #ifndef GUID_DEFINED
 struct GUID
 {
-    unsigned int   Data1;
-    unsigned short Data2;
-    unsigned short Data3;
-    unsigned char  Data4[8];
+    uint32_t Data1;
+    uint16_t Data2;
+    uint16_t Data3;
+    uint8_t  Data4[8];
 };
 #endif
 
