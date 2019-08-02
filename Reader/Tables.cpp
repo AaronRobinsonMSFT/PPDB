@@ -19,6 +19,8 @@
 // SOFTWARE.
 
 #include <cassert>
+#include <limits>
+#include <cstring>
 #include <PPDBReader.hpp>
 
 using namespace PPDB;
@@ -124,8 +126,10 @@ namespace
             for (size_t cs : _config.ColumnSizes)
             {
                 // Extract row data
+                // Ensure always initialized to 0. This is done since
+                // the reading size may be less than 4 bytes.
                 uint32_t val{};
-                ::memcpy_s(&val, sizeof(val), rowPos, cs);
+                ::memcpy(&val, rowPos, cs);
                 rowPos += cs;
                 assert(rowPos <= std::end(_config.View));
 

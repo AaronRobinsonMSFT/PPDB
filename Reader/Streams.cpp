@@ -21,6 +21,8 @@
 #include <cassert>
 #include <bitset>
 #include <sstream>
+#include <limits>
+#include <cstring>
 #include <PPDBReader.hpp>
 
 using namespace PPDB;
@@ -105,7 +107,7 @@ namespace
 
         // Correct the signing
         int32_t val;
-        ::memcpy_s(&val, sizeof(val), &u32res, sizeof(u32res));
+        ::memcpy(&val, &u32res, sizeof(u32res));
 
         bool isSigned = (val & 0x1) != 0;
         val >>= 1;

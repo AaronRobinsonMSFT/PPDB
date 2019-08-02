@@ -19,6 +19,7 @@
 // SOFTWARE.
 
 #include <cstdio>
+#include <cstdint>
 #include <PPDBReader.hpp>
 
 template<typename T>
@@ -124,14 +125,14 @@ void PrintRow(const PPDB::StateMachineMethodTableReader::Row &r)
 template<>
 void PrintRow(const PPDB::LocalVariableTableReader::Row &r)
 {
-    ::printf("LocalVar: 0x%04x %u %s\n", r.Attr, r.SlotIndex, r.Name.c_str());
+    ::printf("LocalVar: 0x%04x %u %s\n", (uint32_t)r.Attr, r.SlotIndex, r.Name.c_str());
 }
 
 template<>
 void PrintRow(const PPDB::LocalConstantTableReader::Row &r)
 {
     ::printf("LocalConst: %s\n", r.Name.c_str());
-    ::printf("\t%u 0x%08x 0x%08x %zu\n", r.Signature.Type, r.Signature.TypeToken, r.Signature.CustomModToken, r.Signature.RawValue.size());
+    ::printf("\t%u 0x%08x 0x%08x %zu\n", (uint32_t)r.Signature.Type, r.Signature.TypeToken, r.Signature.CustomModToken, r.Signature.RawValue.size());
 }
 
 template<>
@@ -152,7 +153,7 @@ void PrintRow(const PPDB::ModuleTableReader::Row &r)
 template<>
 void PrintRow(const PPDB::CustomDebugInformationTableReader::Row &r)
 {
-    ::printf("Custom: Parent: %u\n", r.Parent);
+    ::printf("Custom: Parent: %u\n", (uint32_t)r.Parent);
     ::printf("\tKind: ");
     PrintGuid(r.Kind);
     ::printf("\n");
@@ -217,7 +218,7 @@ int main(int ac, char **av)
     }
     catch (const PPDB::Exception &e)
     {
-        ::fprintf(stderr, "Exception: %u (Name '%s', Table '%d')\n", e.Error, e.Name.c_str(), e.Table);
+        ::fprintf(stderr, "Exception: %u (Name '%s', Table '%d')\n", (uint32_t)e.Error, e.Name.c_str(), (int32_t)e.Table);
         return EXIT_FAILURE;
     }
 
