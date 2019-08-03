@@ -21,6 +21,7 @@
 #ifndef _PPDB_INC_PLATFORM_HPP_
 #define _PPDB_INC_PLATFORM_HPP_
 
+#include <cstddef>
 #include <cstdint>
 #include <cassert>
 

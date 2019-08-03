@@ -23,6 +23,7 @@
 
 #include <xplat_corsym.hpp>
 #include <atomic>
+#include <cstring>
 
 // Every interface type should have a defined version of this function.
 template<typename T>
@@ -70,7 +71,9 @@ namespace Internal
 class UnknownImpl
 {
 public:
-    UnknownImpl() = default;
+    UnknownImpl() : _refCount{ 1 }
+    { }
+
     virtual ~UnknownImpl() = default;
 
     UnknownImpl(const UnknownImpl&) = delete;
@@ -120,7 +123,7 @@ public:
     }
 
 private:
-    std::atomic<ULONG> _refCount = 1;
+    std::atomic<ULONG> _refCount;
 };
 
 class SymUnmanagedReader :
