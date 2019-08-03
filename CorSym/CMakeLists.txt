@@ -3,7 +3,9 @@ project (CorSym)
 
 include_directories (${INC})
 
-add_library (CorSym SHARED CorSym.cpp)
+add_library (CorSym SHARED
+    CorSym.cpp
+    Reader.cpp)
 target_link_libraries (CorSym PPDBReader)
 
 install(TARGETS CorSym DESTINATION $<CONFIG>/${CMAKE_GENERATOR_PLATFORM})

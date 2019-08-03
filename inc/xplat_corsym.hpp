@@ -28,6 +28,16 @@
 #include <cstdint>
 #include "platform.hpp"
 
+#if !defined(DEFINE_CORSYM_EXPORTS)
+    #define CORSYM_EXPORTED 
+#else
+    #if defined(_WIN32)
+        #define CORSYM_EXPORTED __declspec(dllexport)
+    #else
+        #define CORSYM_EXPORTED __attribute__ ((visibility ("default")))
+    #endif
+#endif
+
 #if !defined(NO_DEF_WINDOWS_PRIMITIVES)
     using HRESULT = uint32_t;
 
@@ -64,10 +74,10 @@
 #ifndef EXTERN_GUID
     #if defined(DEFINE_CORSYM_EXPORTS)
         #define EXTERN_GUID(sym, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11) \
-            EXTERN_C const IID sym = {d1, d2, d3, { d4, d5, d6, d7, d8, d9, d10, d11 }}
+            EXTERN_C const GUID sym = {d1, d2, d3, { d4, d5, d6, d7, d8, d9, d10, d11 }}
     #else
         #define EXTERN_GUID(sym, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11) \
-            EXTERN_C const IID sym
+            EXTERN_C const GUID sym
     #endif
 #endif
 
@@ -116,19 +126,22 @@
 #define COM_NO_WINDOWS_H
 #include "internal/corsym.h"
 
-#if !defined(DEFINE_CORSYM_EXPORTS)
-    #define CORSYM_EXPORTED 
-#else
-    #if defined(_WIN32)
-        #define CORSYM_EXPORTED __declspec(dllexport)
-    #else
-        #define CORSYM_EXPORTED __attribute__ ((visibility ("default")))
-    #endif
+// Define a comprehensive set of supported error codes
+#if !defined(NO_DEF_HRESULTS)
+    #define S_OK            ((HRESULT)0)
+    #define E_NOTIMPL       ((HRESULT)0x80004001)
+    #define E_NOINTERFACE   ((HRESULT)0x80004002)
+    #define E_FAIL          ((HRESULT)0x80004005)
+    #define E_UNEXPECTED    ((HRESULT)0x8000FFFF)
+    #define E_ACCESSDENIED  ((HRESULT)0x80070005)
+    #define E_OUTOFMEMORY   ((HRESULT)0x8007000E)
+    #define E_INVALIDARG    ((HRESULT)0x80070057)
+    #define E_POINTER       ((HRESULT)0x80004003)
 #endif
 
 //
 // Library exports
 //
-EXTERN_C CORSYM_EXPORTED HRESULT CreateReader(ISymUnmanagedReader **reader);
+EXTERN_C CORSYM_EXPORTED HRESULT STDMETHODCALLTYPE CreateReader(ISymUnmanagedReader **reader);
 
 #endif // _PPDB_INC_XPLAT_CORSYM_HPP_
