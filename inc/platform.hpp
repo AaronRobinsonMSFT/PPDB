@@ -36,8 +36,13 @@ struct GUID
 
 static_assert(sizeof(GUID) == 16, "GUID should be 16 bytes");
 
+#if !defined(NO_DEF_COR_PRIMITIVES)
 using mdToken = uint32_t;
+using mdMethodDef = mdToken;
+using mdTypeDef = mdToken;
+
 const mdToken mdTokenNil = mdToken{ 0 };
+#endif
 
 namespace plat
 {

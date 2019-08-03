@@ -18,5 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#define DEFINE_CORSYM_EXPORTS
+#include <cassert>
 #include <xplat_corsym.hpp>
 
+EXTERN_C CORSYM_EXPORTED HRESULT CreateReader(ISymUnmanagedReader **reader)
+{
+    return 0;
+}

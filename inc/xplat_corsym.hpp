@@ -25,8 +25,8 @@
 #ifndef _PPDB_INC_XPLAT_CORSYM_HPP_
 #define _PPDB_INC_XPLAT_CORSYM_HPP_
 
-#include "platform.hpp"
 #include <cstdint>
+#include "platform.hpp"
 
 #if !defined(NO_DEF_WINDOWS_PRIMITIVES)
     using HRESULT = uint32_t;
@@ -62,7 +62,7 @@
 #endif
 
 #ifndef EXTERN_GUID
-    #if defined(DECLARE_EXPORTS)
+    #if defined(DEFINE_CORSYM_EXPORTS)
         #define EXTERN_GUID(sym, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11) \
             EXTERN_C const IID sym = {d1, d2, d3, { d4, d5, d6, d7, d8, d9, d10, d11 }}
     #else
@@ -98,11 +98,6 @@
     using VARIANT = void *;
 #endif
 
-#if !defined(NO_DEF_COR_PRIMITIVES)
-    using mdMethodDef = mdToken;
-    using mdTypeDef = mdToken;
-#endif
-
 #if !defined(NO_DEF_IUNKNOWN)
     MIDL_INTERFACE("00000000-0000-0000-C000-000000000046")
     IUnknown
@@ -120,5 +115,20 @@
 
 #define COM_NO_WINDOWS_H
 #include "internal/corsym.h"
+
+#if !defined(DEFINE_CORSYM_EXPORTS)
+    #define CORSYM_EXPORTED 
+#else
+    #if defined(_WIN32)
+        #define CORSYM_EXPORTED __declspec(dllexport)
+    #else
+        #define CORSYM_EXPORTED __attribute__ ((visibility ("default")))
+    #endif
+#endif
+
+//
+// Library exports
+//
+EXTERN_C CORSYM_EXPORTED HRESULT CreateReader(ISymUnmanagedReader **reader);
 
 #endif // _PPDB_INC_XPLAT_CORSYM_HPP_
