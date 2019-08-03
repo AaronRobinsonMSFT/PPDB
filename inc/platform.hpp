@@ -18,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef _PPDB_INC_PLATFORM_H_
-#define _PPDB_INC_PLATFORM_H_
+#ifndef _PPDB_INC_PLATFORM_HPP_
+#define _PPDB_INC_PLATFORM_HPP_
 
 #include <cstdint>
 #include <cassert>
@@ -136,4 +136,4 @@ namespace plat
     };
 }
 
-#endif // _PPDB_INC_PLATFORM_H_
+#endif // _PPDB_INC_PLATFORM_HPP_

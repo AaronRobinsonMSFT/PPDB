@@ -18,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef _PPDB_INC_PPDBREADER_H_
-#define _PPDB_INC_PPDBREADER_H_
+#ifndef _PPDB_INC_PPDBREADER_HPP_
+#define _PPDB_INC_PPDBREADER_HPP_
 
 #include <cstdint>
 #include <vector>
@@ -651,4 +651,4 @@ namespace PPDB
     };
 }
 
-#endif // _PPDB_INC_PPDBREADER_H_
+#endif // _PPDB_INC_PPDBREADER_HPP_
