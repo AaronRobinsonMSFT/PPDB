@@ -4,3 +4,4 @@ set (INC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 
 add_subdirectory (Dump)
 add_subdirectory (Reader)
+add_subdirectory (CorSym)
