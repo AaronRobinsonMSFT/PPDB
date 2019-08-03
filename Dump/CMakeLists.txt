@@ -3,7 +3,7 @@ project (PPDBDump)
 
 include_directories (${INC})
 
-add_executable (PPDBDump PPDBDump.cpp ${READER_SRC})
+add_executable (PPDBDump PPDBDump.cpp)
 target_link_libraries (PPDBDump PPDBReader)
 
 install(TARGETS PPDBDump DESTINATION $<CONFIG>/${CMAKE_GENERATOR_PLATFORM})
