@@ -363,7 +363,7 @@ SequencePoints BlobHeapReader::GetAsSequencePoints(size_t initalDocumentIndex, s
 
         pt.EndColumn = pt.StartColumn + colRange;
         assert(pt.EndColumn < 0x10000);
-        assert(pt.StartLine == pt.EndLine || pt.StartColumn < pt.EndColumn);
+        assert(pt.StartLine == pt.EndLine ? pt.StartColumn < pt.EndColumn : pt.StartLine < pt.EndLine);
 
         result.Points.push_back(std::move(pt));
         prevNonHiddenIdx = static_cast<int>(result.Points.size() - 1);
