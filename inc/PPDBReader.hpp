@@ -544,6 +544,8 @@ namespace PPDB
         ImportScope = 26
     };
 
+    const uint32_t HasCustomDebugInformationMask = 0x1f;
+
     // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#customdebuginformation-table-0x37
     class CustomDebugInformationTableReader : virtual public TableReader
     {
