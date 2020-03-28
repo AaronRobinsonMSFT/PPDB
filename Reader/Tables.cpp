@@ -560,7 +560,7 @@ namespace
                 return false;
 
             // Enumeration is represented by the first 5 bits
-            // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#HasCustomDebugInformation
+            // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#customdebuginformation-table-0x37
             r.Parent = static_cast<HasCustomDebugInformation>(cols[0] & 0x1f);
             r.Kind = _guidReader->Get(cols[1]);
 

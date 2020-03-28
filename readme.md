@@ -28,7 +28,7 @@ A native library for working with the [Portable PDB](https://github.com/dotnet/c
 
 [ECMA-335](https://www.ecma-international.org/publications/standards/Ecma-335.htm) - Metadata specification
 
-[Portable PDB](https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md) - Additional tables specification
+[Portable PDB](https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md) - Additional tables specification
 
 
 ## License

@@ -108,7 +108,7 @@ namespace PPDB
         size_t DocumentIndex;
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#sequence-points-blob
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#sequence-points-blob
     struct SequencePoints
     {
         // StandAloneSig table index
@@ -134,7 +134,7 @@ namespace PPDB
         DefineTargetTypeAlias = 9
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#ImportsBlob
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#ImportsBlob
     struct Import
     {
         ImportKind Kind;
@@ -194,7 +194,7 @@ namespace PPDB
         // = 0x55,
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#localconstantsig-blob
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#localconstantsig-blob
     struct LocalConstantSig
     {
         ElementType Type;
@@ -291,7 +291,7 @@ namespace PPDB
     using AllTables = std::array<T, static_cast<size_t>(MetadataTable::Max)>;
 
     // PDB stream reader '#PDB'
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#pdb-stream
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#pdb-stream
     class PdbStreamReader
     {
     public: // static
@@ -373,7 +373,7 @@ namespace PPDB
         virtual bool NextRow(Row &r) = 0;
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#document-table-0x30
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#document-table-0x30
     class DocumentTableReader : virtual public TableReader
     {
     public: // static
@@ -392,7 +392,7 @@ namespace PPDB
         virtual bool NextRow(Row &r) = 0;
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#methoddebuginformation-table-0x31
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#methoddebuginformation-table-0x31
     class MethodDebugInformationTableReader : virtual public TableReader
     {
     public: // static
@@ -405,7 +405,7 @@ namespace PPDB
         virtual bool NextRow(Row &r) = 0;
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#localscope-table-0x32
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#localscope-table-0x32
     class LocalScopeTableReader : virtual public TableReader
     {
     public: // static
@@ -440,7 +440,7 @@ namespace PPDB
         DebuggerHidden = 0x1
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#localvariable-table-0x33
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#localvariable-table-0x33
     class LocalVariableTableReader : virtual public TableReader
     {
     public:
@@ -458,7 +458,7 @@ namespace PPDB
         virtual bool NextRow(Row &r) = 0;
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#localconstant-table-0x34
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#localconstant-table-0x34
     class LocalConstantTableReader : virtual public TableReader
     {
     public: // static
@@ -475,7 +475,7 @@ namespace PPDB
         virtual bool NextRow(Row &r) = 0;
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#importscope-table-0x35
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#importscope-table-0x35
     class ImportScopeTableReader : virtual public TableReader
     {
     public:
@@ -493,7 +493,7 @@ namespace PPDB
         virtual bool NextRow(Row &r) = 0;
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#statemachinemethod-table-0x36
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#statemachinemethod-table-0x36
     class StateMachineMethodTableReader : virtual public TableReader
     {
     public: // static
@@ -544,7 +544,7 @@ namespace PPDB
         ImportScope = 26
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#customdebuginformation-table-0x37
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#customdebuginformation-table-0x37
     class CustomDebugInformationTableReader : virtual public TableReader
     {
     public: // static
@@ -614,7 +614,7 @@ namespace PPDB
         const std::string Name;
     };
 
-    // https://github.com/dotnet/corefx/blob/master/src/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#portable-pdb-v10-format-specification
+    // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#portable-pdb-v10-format-specification
     class PortablePdbReader
     {
     public: // static
