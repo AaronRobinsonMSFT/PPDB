@@ -71,6 +71,13 @@ namespace plat
         {
         }
 
+        template <typename U, size_t US>
+        constexpr data_view(const U(&arr)[US]) noexcept
+            : _data{ reinterpret_cast<const_pointer>(arr) }
+            , _size{ US }
+        {
+        }
+
         data_view(const data_view &) = default;
         data_view &operator=(const data_view &) = default;
 

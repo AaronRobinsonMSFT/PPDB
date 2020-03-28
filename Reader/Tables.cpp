@@ -46,6 +46,31 @@ namespace
             : ColumnType::Width_2;
     }
 
+    constexpr ColumnType CodedIndex(
+                    const AllTables<uint32_t>& counts,
+                    const plat::data_view<MetadataTable>& targets,
+                    uint32_t reserveMask)
+    {
+        // Compute the maximum index value that can be used
+        // given the supplied mask.
+        auto maxWidth_2 = std::numeric_limits<uint16_t>::max();
+        while (reserveMask & 0x1)
+        {
+            maxWidth_2 >>= 1;
+            reserveMask >>= 1;
+        }
+
+        // If any target table exceeds this value, then a 2-byte
+        // column size will be insufficient.
+        for (auto t : targets)
+        {
+            if (counts[static_cast<size_t>(t)] >= maxWidth_2)
+                return ColumnType::Width_4;
+        }
+
+        return ColumnType::Width_2;
+    }
+
     struct TableReaderConfig
     {
         static TableReaderConfig Create(
@@ -524,6 +549,37 @@ namespace
         }
     };
 
+    const MetadataTable CustomDebugInformationTableTargetTables[] =
+    {
+        MetadataTable::MethodDef,
+        MetadataTable::Field,
+        MetadataTable::TypeRef,
+        MetadataTable::TypeDef,
+        MetadataTable::Param,
+        MetadataTable::InterfaceImpl,
+        MetadataTable::MemberRef,
+        MetadataTable::Module,
+        MetadataTable::DeclSecurity,
+        MetadataTable::Property,
+        MetadataTable::Event,
+        MetadataTable::StandAloneSig,
+        MetadataTable::ModuleRef,
+        MetadataTable::TypeSpec,
+        MetadataTable::Assembly,
+        MetadataTable::AssemblyRef,
+        MetadataTable::File,
+        MetadataTable::ExportedType,
+        MetadataTable::ManifestResource,
+        MetadataTable::GenericParam,
+        MetadataTable::GenericParamConstraint,
+        MetadataTable::MethodSpec,
+        MetadataTable::Document,
+        MetadataTable::LocalScope,
+        MetadataTable::LocalVariable,
+        MetadataTable::LocalConstant,
+        MetadataTable::ImportScope,
+    };
+
     class CustomDebugInformationTableReaderImpl :
         public TableReaderBase,
         public CustomDebugInformationTableReader
@@ -535,13 +591,14 @@ namespace
             const AllTables<uint32_t> &rowCounts,
             HeapSizeFlags flags)
         {
+            const auto parentIdxType = CodedIndex(rowCounts, CustomDebugInformationTableTargetTables, HasCustomDebugInformationMask);
             const auto guidIdxType = HasFlag(flags, HeapSizeFlags::Guid) ? ColumnType::Width_4 : ColumnType::Width_2;
             const auto blobIdxType = HasFlag(flags, HeapSizeFlags::Blob) ? ColumnType::Width_4 : ColumnType::Width_2;
 
             auto cfg = TableReaderConfig::Create(
                 view,
                 rowCounts[static_cast<size_t>(TableId)],
-                { ColumnType::Width_2, guidIdxType, blobIdxType });
+                { parentIdxType, guidIdxType, blobIdxType });
 
             return std::make_unique<CustomDebugInformationTableReaderImpl>(std::move(cfg), reader.get());
         }
@@ -561,7 +618,7 @@ namespace
 
             // Enumeration is represented by the first 5 bits
             // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Reflection.Metadata/specs/PortablePdb-Metadata.md#customdebuginformation-table-0x37
-            r.Parent = static_cast<HasCustomDebugInformation>(cols[0] & 0x1f);
+            r.Parent = static_cast<HasCustomDebugInformation>(cols[0] & HasCustomDebugInformationMask);
             r.Kind = _guidReader->Get(cols[1]);
 
             auto value = _blobReader->Get(cols[2]);
