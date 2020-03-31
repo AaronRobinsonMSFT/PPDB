@@ -238,6 +238,9 @@ std::string BlobHeapReader::GetAsDocumentBlob(size_t offset) const
     auto iter = std::begin(docBlob);
     const char delim = *iter++;
 
+    // [TODO] Add support for UTF-8 encoded delim
+    assert((delim & 0x80) == 0);
+
     std::stringstream ss;
     while (iter < std::end(docBlob))
     {
