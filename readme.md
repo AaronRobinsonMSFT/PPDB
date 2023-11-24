@@ -1,5 +1,7 @@
 # Portable PDB native
 
+**NOTE** This project is being archived. It is recommended all users consider using the [DNMD](https://github.com/AaronRobinsonMSFT/DNMD). The DNMD project is far more robust and has a more stable architecture.
+
 A native library for working with the [Portable PDB](https://github.com/dotnet/core/blob/master/Documentation/diagnostics/portable_pdb.md) format.
 
 ## Project contents
@@ -12,7 +14,7 @@ A native library for working with the [Portable PDB](https://github.com/dotnet/c
 
 ## Requirements
 
-- [CMake](https://cmake.org/) version 3.0+
+- [CMake](https://cmake.org/) version 3.10
 - Compiler with C++11 support
 
 ## Build
