@@ -63,17 +63,17 @@ std::shared_ptr<PortablePdbReader> PortablePdbReader::CreateReader(std::vector<u
 
 std::shared_ptr<PortablePdbReader> PortablePdbReader::CreateReader(const char *file)
 {
-    std::basic_ifstream<uint8_t> pdbFile{ file, std::ios_base::in | std::ios_base::binary };
+    std::basic_ifstream<char> pdbFile{ file, std::ios_base::in | std::ios_base::binary };
     if (!pdbFile)
         throw Exception{ ErrorCode::FileReadFailure };
 
     // Read contents into buffer
     std::vector<uint8_t> fileContents;
     std::copy(
-        std::istreambuf_iterator<uint8_t>{ pdbFile },
-        std::istreambuf_iterator<uint8_t>{},
+        std::istreambuf_iterator<char>{ pdbFile },
+        std::istreambuf_iterator<char>{},
         std::back_inserter(fileContents));
-    
+
     return CreateReader(std::move(fileContents));
 }
 

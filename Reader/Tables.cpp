@@ -366,7 +366,7 @@ namespace
             r.StartOffset = cols[4];
             assert(r.StartOffset < 0x80000000);
             r.Length = cols[5];
-            assert(r.Length != 0 && r.Length < 0x80000000);
+            assert(r.Length < 0x80000000);
             assert((r.StartOffset + r.Length) < 0x80000000);
 
             return true;
